@@ -1,39 +1,75 @@
-## 2. JSX란
+# 3. props로 컴포넌트에 값 전달하기
+
+#### **props**는 properties의 약자
 
 ---
 
-### 규칙
+## props의 기본 사용법
 
-1. 태그는 꼭 닫혀있어야 한다.
-
-```jsx
-<div>태그는 꼭 닫혀야 한다!</div>
-<Hello />
-```
-
-2. 두개 이상의 태그는 무조건 하나의 태그로 감싸져야 한다.
+App 컴포넌트에서 Hello 컴포넌트를 사용 할 때 name과 color라는 값을 보내고 싶을때 </br>
+</br>
+**App.js**
 
 ```jsx
-<>
-  <div>두개 이상의</div>
-  <p>태그는 감싸자</p>
-</>
-```
+import React from "react";
+import Hello from "./Hello";
 
-3. JSX 내부에 js 변수를 보여줄때는 {}로 감싸야 한다.
-
-```jsx
-const name = "이렇게";
-return <div>JavaScript 값 보여줄 땐, {name} </div>;
-```
-
-4. JSX는 camel casing을 지향한다. ex) className ...etc
-   </br>
-   </br>
-5. JSX 주석처리는 이런 형식으로 작성한다.
-
-```jsx
-{
-  /* 주석은 이렇게 */
+function App() {
+  return <Hello name="react" color="red" />;
 }
+
+export default App;
+```
+
+**Hello.js**
+
+```jsx
+import React from "react";
+
+function Hello({ color, name }) {
+  //비구조화 할당(구조 분해)
+  return <div style={{ color }}>안녕하세요 {name}</div>;
+}
+
+export default Hello;
+```
+
+---
+
+## props.children 사용법
+
+컴포넌트 태그 사이에 넣은 값을 조회하고 싶을 땐, props.children을 조회하면 된다. </br>
+**Wrapper.js**
+
+```jsx
+import React from "react";
+
+function Wrapper({ children }) {
+  const style = {
+    border: "2px solid black",
+    padding: "16px",
+  };
+  return <div style={style}>{children}</div>;
+}
+
+export default Wrapper;
+```
+
+**App.js**
+
+```jsx
+import React from "react";
+import Hello from "./Hello";
+import Wrapper from "./Wrapper";
+
+function App() {
+  return (
+    <Wrapper>
+      <Hello name="react" color="red" />
+      <Hello color="pink" />
+    </Wrapper>
+  );
+}
+
+export default App;
 ```
