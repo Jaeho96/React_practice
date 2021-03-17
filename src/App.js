@@ -1,7 +1,14 @@
-import "./App.css";
+import React from "react";
+import Hello from "./Hello";
 
 function App() {
-  return <div>다시 시작해보자!</div>;
+  return (
+    <div>
+      <Hello />
+      <Hello />
+      <Hello />
+    </div>
+  );
 }
 
 export default App;
